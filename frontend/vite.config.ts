@@ -1,6 +1,5 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 
-// https://vite.dev/config/
 export default defineConfig({
   base: "/deployed-joker/",
   test: {
