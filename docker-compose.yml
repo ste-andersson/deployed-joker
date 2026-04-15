@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: 'postgres:15'
+    container_name: 'salt-postgres'
+    environment:
+      - POSTGRES_USER=salt
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=saltdb
+    volumes:
+      - ./data/pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+
+  backend:
+    build: ./backendJokes
+    container_name: backend
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=saltdb
+      - DB_USER=salt
+      - DB_PASSWORD=secret
